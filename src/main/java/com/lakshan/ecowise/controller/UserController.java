@@ -21,18 +21,18 @@ public class UserController {
     }
 
     @PostMapping("/addUser")
-    public ResponseEntity<User> addUser(@RequestBody User user){
+    public ResponseEntity<User> addUser(@RequestBody User user) {
         user.setPassword(DigestUtils.sha256Hex(user.getPassword()));
         userService.addNewUser(user);
         return ResponseEntity.ok(user);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody User body){
-       var user = userService.getUserByEmail(body.getEmail());
+    public ResponseEntity<?> login(@RequestBody User user) {
+        var dbUser = userService.getUserByEmail(user.getEmail());
 
-        if (user != null && user.getPassword().equals(body.getPassword())) {
-            return ResponseEntity.ok(user);
+        if (dbUser != null && dbUser.getPassword().equals(DigestUtils.sha256Hex(user.getPassword()))) {
+            return ResponseEntity.ok(dbUser);
         } else
             return ResponseEntity.status(401).body("Invalid email or password");
     }
@@ -43,7 +43,7 @@ public class UserController {
     }
 
     @GetMapping("/getAllUsers")
-    public List<User> getUsers(){
+    public List<User> getUsers() {
         return userService.getAllUsers();
     }
 
