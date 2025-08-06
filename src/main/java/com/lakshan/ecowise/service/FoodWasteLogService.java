@@ -23,7 +23,6 @@ public class FoodWasteLogService {
 
     public void addFoodWasteLog(FoodWasteLog foodWasteLog) {
         foodWasteLogRepository.save(foodWasteLog);
-
         String prompt = """
                 "I wasted %f %s of %s because they are %s. 
                  Give me 3 recommendations related to reducing this type of food waste.
