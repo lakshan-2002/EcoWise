@@ -1,0 +1,202 @@
+/* Logs Page Background */
+.logs-bg {
+  background: #18181B;
+  min-height: 100vh;
+  color: #fff;
+  font-family: 'Roboto', 'Plus Jakarta Sans', sans-serif;
+}
+
+.logs-container {
+  margin: 0 auto;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Header and Breadcrumb */
+.logs-header-section {
+  width: 100%;
+  max-width: 1565px;
+  margin-top: 32px;
+  background: #09090B;
+  border-radius: 16px 16px 0 0;
+  padding: 32px 48px 0 48px;
+  box-sizing: border-box;
+}
+
+.logs-header-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.logs-title {
+  color: #84E931;
+  font-size: 40px;
+  font-weight: 700;
+  margin: 0;
+  letter-spacing: -0.04em;
+}
+
+.logs-breadcrumb {
+  color: #D6DDE6;
+  font-size: 20px;
+  margin-left: 24px;
+}
+
+.logs-header-line {
+  height: 1px;
+  background: #27272A;
+  margin: 24px 0 0 0;
+  width: 100%;
+}
+
+/* Form Section */
+.logs-form-section {
+  width: 100%;
+  max-width: 1565px;
+  background: #09090B;
+  border-radius: 0 0 16px 16px;
+  padding: 0 48px 48px 48px;
+  box-sizing: border-box;
+}
+
+.logs-form-title-row {
+  margin-top: 32px;
+  margin-bottom: 24px;
+}
+
+.logs-form-title {
+  color: #fff;
+  font-size: 28px;
+  font-weight: 500;
+  margin: 0;
+}
+
+.logs-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.logs-form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  width: 100%;
+}
+
+.logs-form-group {
+  flex: 1 1 220px;
+  min-width: 160px;
+  display: flex;
+  flex-direction: column;
+}
+
+.logs-form-group label {
+  color: #D6DDE6;
+  font-weight: 500;
+  font-size: 15px;
+  margin-bottom: 8px;
+}
+
+.logs-form-group input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1.5px solid #fff;
+  background: rgba(255,255,255,0.04);
+  color: #fff;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.logs-form-group input:focus {
+  border: 1.5px solid #84E931;
+}
+
+.logs-form-btn-row {
+  flex: 1 1 100%;
+  min-width: 220px;
+  align-self: flex-end;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 32px;
+}
+
+.logs-submit-btn {
+  background: #31CA2C;
+  color: #09090B;
+  font-weight: 700;
+  font-size: 20px;
+  border: none;
+  border-radius: 8px;
+  padding: 16px 48px;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(49,202,44,0.08);
+  transition: background 0.2s;
+}
+
+.logs-submit-btn:hover {
+  background: #84E931;
+}
+
+.logs-form-line {
+  height: 1px;
+  background: #27272A;
+  margin: 0 0 32px 0;
+  width: 100%;
+}
+
+/* Logs List */
+.logs-list-section {
+  margin-top: 0;
+}
+
+.logs-list-title {
+  color: #D6DDE6;
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.logs-list-table-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #18181B;
+  border: 1px solid #27272A;
+}
+
+.logs-list-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+.logs-list-table thead tr {
+  background: #232326;
+}
+
+.logs-list-table th {
+  padding: 12px 16px;
+  color: #84E931;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: left;
+}
+
+.logs-list-table td {
+  padding: 12px 16px;
+  font-size: 16px;
+  border-bottom: 1px solid #27272A;
+}
+
+.logs-list-empty {
+  color: #71717A;
+  text-align: center;
+  padding: 32px;
+}

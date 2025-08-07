@@ -1,0 +1,117 @@
+/* Waste Table Styles */
+.waste-table {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.table-container {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+thead {
+  background-color: transparent;
+}
+
+th {
+  padding: 12px 16px;
+  text-align: left;
+  font-weight: 400;
+  color: #71717A;
+  border-bottom: 1px solid #E4E4E7;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+td {
+  padding: 16px;
+  border-bottom: 1px solid #E4E4E7;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+.date-chip {
+  display: inline-block;
+  padding: 4px 8px;
+  background-color: rgba(255, 255, 255, 0.09);
+  border: 1.5px solid transparent;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.edit-btn,
+.delete-btn {
+  padding: 8px 12px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
+}
+
+.edit-btn {
+  background-color: #3B33DD;
+  color: #FFFFFF;
+}
+
+.edit-btn:hover {
+  background-color: #4C44E8;
+}
+
+.delete-btn {
+  background-color: #C51B1B;
+  color: #FFFFFF;
+}
+
+.delete-btn:hover {
+  background-color: #D62B2B;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .waste-table {
+    overflow-x: scroll;
+  }
+  
+  table {
+    min-width: 800px;
+  }
+}
+
+@media (max-width: 768px) {
+  th,
+  td {
+    padding: 12px 8px;
+    font-size: 13px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .edit-btn,
+  .delete-btn {
+    padding: 6px 8px;
+    font-size: 12px;
+  }
+} 

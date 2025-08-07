@@ -1,0 +1,141 @@
+/* Overview Cards Styles */
+.overview-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.card {
+  background-color: #09090B;
+  border: 1px solid #27272A;
+  border-radius: 16px;
+  padding: 24px;
+  transition: all 0.2s ease;
+}
+
+.card:hover {
+  border-color: #3F3F46;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.card-header h3 {
+  font-size: 20px;
+  font-weight: 400;
+  color: #A1A1AA;
+  margin: 0;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.waste-amount {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.amount {
+  font-size: 40px;
+  font-weight: 600;
+  color: #31CA2C;
+  line-height: 0.9;
+}
+
+.unit {
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+}
+
+.waste-change {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.waste-change.positive {
+  color: #A6EE43;
+}
+
+.waste-change.negative {
+  color: #C51B1B;
+}
+
+.change-amount {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.change-label {
+  font-size: 12px;
+  color: #71717A;
+}
+
+.category-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.category-name {
+  font-size: 40px;
+  font-weight: 600;
+  color: #31CA2C;
+  line-height: 0.9;
+}
+
+.category-amount {
+  font-size: 40px;
+  font-weight: 600;
+  color: #31CA2C;
+  line-height: 0.9;
+}
+
+.see-all-btn {
+  padding: 8px 12px;
+  background-color: #27272A;
+  border: 1px solid #27272A;
+  border-radius: 6px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.see-all-btn:hover {
+  background-color: #3F3F46;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .overview-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .card {
+    padding: 16px;
+  }
+  
+  .amount,
+  .category-name,
+  .category-amount {
+    font-size: 32px;
+  }
+  
+  .card-header h3 {
+    font-size: 18px;
+  }
+} 
