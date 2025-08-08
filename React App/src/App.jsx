@@ -4,6 +4,7 @@ import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
 import Dashboard from "./Dashboard";
 import Logs from "./Logs";
+import Analytics from "./Analytics";
 
 const App = () => {
   return (
@@ -24,6 +25,9 @@ const App = () => {
           
           {/* Logs page */}
           <Route path="/logs" element={<Logs />} />
+          
+          {/* Analytics page */}
+          <Route path="/analytics" element={<Analytics />} />
           
           {/* Catch all - redirect to login */}
           <Route path="*" element={<Navigate to="/login" replace />} />
