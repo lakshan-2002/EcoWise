@@ -4,6 +4,7 @@ import './Sidebar.css';
 
 function Sidebar({ collapsed, onLogout }) {
   const location = useLocation();
+  
   const handleLogoutClick = (e) => {
     e.preventDefault();
     if (onLogout) {
@@ -39,6 +40,7 @@ function Sidebar({ collapsed, onLogout }) {
               {!collapsed && <span>Dashboard</span>}
             </Link>
           </li>
+          
           <li className={`nav-item${location.pathname === '/analytics' ? ' active' : ''}`}>
             <Link to="/analytics" className="nav-link">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -48,6 +50,7 @@ function Sidebar({ collapsed, onLogout }) {
               {!collapsed && <span>Analytics</span>}
             </Link>
           </li>
+          
           <li className={`nav-item${location.pathname === '/logs' ? ' active' : ''}`}>
             <Link to="/logs" className="nav-link">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -60,6 +63,7 @@ function Sidebar({ collapsed, onLogout }) {
               {!collapsed && <span>Logs</span>}
             </Link>
           </li>
+          
           <li className={`nav-item${location.pathname === '/recommendations' ? ' active' : ''}`}>
             <Link to="/recommendations" className="nav-link">
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
