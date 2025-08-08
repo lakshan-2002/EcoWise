@@ -17,7 +17,8 @@ function Recommendations() {
       id: 3,
       text: "Get creative with leftovers by turning them into new meals",
       priority: "Low"
-    }
+    },
+    
   ];
 
   const getPriorityColor = (priority) => {

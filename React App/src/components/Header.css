@@ -4,6 +4,7 @@
   border-bottom: 1px solid #27272A;
   padding: 0 24px;
   height: 80px;
+  margin-top: 10px;
   display: flex;
   align-items: center;
 }
@@ -81,6 +82,7 @@
 .breadcrumb-link.active {
   color: #FFFFFF;
   font-weight: 500;
+  font-size: 20px;
 }
 
 .breadcrumb-separator {

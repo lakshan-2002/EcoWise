@@ -65,7 +65,7 @@
 .logs-header-line {
   height: 1px;
   background: rgba(9, 9, 11, 0.95);
-  margin: 0 0 0 0;
+  margin-top: -5px;
 }
 
 .logs-header-line-secondary {

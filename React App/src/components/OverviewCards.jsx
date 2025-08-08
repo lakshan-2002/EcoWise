@@ -11,7 +11,7 @@ function OverviewCards() {
         </div>
         <div className="card-content">
           <div className="waste-amount">
-            <span className="amount">3.2</span>
+            <span className="amount">35</span>
             <span className="unit">kg/month</span>
           </div>
           <div className="waste-change positive">
@@ -28,7 +28,6 @@ function OverviewCards() {
         <div className="card-content">
           <div className="category-info">
             <div className="category-name">Fruits</div>
-            <div className="category-amount">35 kg</div>
           </div>
         </div>
       </div>

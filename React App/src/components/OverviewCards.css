@@ -79,6 +79,7 @@
 .change-label {
   font-size: 12px;
   color: #71717A;
+  margin-left: 570px;
 }
 
 .category-info {
@@ -90,6 +91,7 @@
 .category-name {
   font-size: 40px;
   font-weight: 600;
+  margin-top: 15px;
   color: #31CA2C;
   line-height: 0.9;
 }
