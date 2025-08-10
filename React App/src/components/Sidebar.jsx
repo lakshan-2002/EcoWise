@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import myLogo from '../assets/EcoWise logo.png';
 import './Sidebar.css';
 
 function Sidebar({ collapsed, onLogout }) {
@@ -17,11 +18,7 @@ function Sidebar({ collapsed, onLogout }) {
       <div className="sidebar-header">
         <div className="logo">
           <div className="logo-icon">
-            <svg width="32" height="32" viewBox="0 0 32 32" fill="none">
-              <rect width="32" height="32" rx="6" fill="#84E931"/>
-              <path d="M8 8h16v16H8z" stroke="#FFFFFF" strokeWidth="2"/>
-              <path d="M12 12h8v8h-8z" fill="#FFFFFF"/>
-            </svg>
+            <img src={myLogo} alt="EcoWise Logo" className='logo-img'/>
           </div>
           {!collapsed && <span className="logo-text">EcoWise</span>}
         </div>

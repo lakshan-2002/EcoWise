@@ -24,7 +24,7 @@
   gap: 12px;
 }
 
-.logo-icon {
+/* .logo-icon {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,7 +32,15 @@
   height: 40px;
   border-radius: 8px;
   background-color: #84E931;
+} */
+
+.logo-img {
+  margin-left: 15px;
+  width: 35x;  /* match old SVG size */
+  height: 35px;
+  object-fit: contain;
 }
+
 
 .logo-text {
   font-size: 28px;
