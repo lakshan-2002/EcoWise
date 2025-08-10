@@ -198,7 +198,7 @@ function RecommendationsPage() {
           {/* Main Recommendations Section */}
           <div className="recommendations-section">
             <div className="section-header">
-              <div className="header-left">
+              <div className="recommendations-page-header-left">
                 <h2>All Recommendations</h2>
                 <p className="description">*Based on your recent data</p>
               </div>

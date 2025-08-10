@@ -97,6 +97,7 @@
 .main-content .quick-actions-section {
   margin-left: 25px !important;
   padding-left: 0 !important;
+  margin-bottom: 50px !important;
 }
 
 /* Force text left alignment */
@@ -111,9 +112,8 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
-  gap: 130px;
+  gap: 32px;
   padding: 24px;
-  border-bottom: 1px solid #27272A;
 }
 
 .section-header h2 {
@@ -123,19 +123,22 @@
 .header-left h2 {
   font-family: 'Inter', sans-serif;
   font-size: 20px;
-  font-weight: 600;
+  font-weight: 50px;
   line-height: 1.4em;
   color: #FFFFFF;
-  margin: 0 0 4px 25px;
+  margin: 0 0 4px 25px !important;
 }
 
 .header-left .description {
-  font-family: 'Inter', sans-serif;
+  color: #71717A !important;
+}
+
+.description{
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 14px;
-  overflow-wrap: break-word;
-  font-weight: 400;
+  font-weight: 100;
   line-height: 1.43em;
-  color: #71717A;
+  color: #71717A !important;
   margin: 0;
 }
 
@@ -204,6 +207,7 @@
 /* Recommendations Section */
 .recommendations-section {
   margin-bottom: 40px;
+  padding-left: 25px;   /* Add left padding */
 }
 
 /* Table Styles */
@@ -211,6 +215,8 @@
   background-color: #09090B;
   border-radius: 8px;
   overflow: hidden;
+  margin-left: 0 !important;   
+  padding-left: 25px !important;   
 }
 
 .table-header {
@@ -233,11 +239,30 @@
 .message-column {
   flex: 1;
   min-width: 400px;
+  padding-left: 300px;
+}
+
+.message-cell {
+  flex: 1;
+  min-width: 400px;
+  max-width: 1050px !important;
+  padding-left: 300px !important;
+  word-break: normal;
+  white-space: normal;
 }
 
 .priority-column {
+  min-width: 170px;
+  flex-shrink: 0;
+  padding-left: 0;
+}
+
+.priority-cell{
   width: 150px;
   flex-shrink: 0;
+  display: flex;
+  justify-content: flex-start !important;   
+  align-items: center; 
 }
 
 .action-column {
@@ -256,6 +281,7 @@
   color: #71717A;
   cursor: pointer;
 }
+
 
 .column-header svg {
   color: #71717A;
