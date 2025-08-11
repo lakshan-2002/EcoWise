@@ -1,0 +1,143 @@
+/* Dashboard Styles */
+.dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #18181B;
+  color: #FFFFFF;
+  font-family: 'Plus Jakarta Sans', 'Inter', sans-serif;
+}
+
+.main-content {
+  flex: 1;
+  background-color: #09090B;
+  overflow-y: auto;
+}
+
+.dashboard-content {
+  padding: 24px;
+}
+
+.overview-section {
+  margin-bottom: 32px;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.section-header h1 {
+  font-size: 36px;
+  font-weight: 500;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.section-header h2 {
+  font-size: 20px;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin: 0;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.search-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  background-color: #27272A;
+  border: 1px solid #27272A;
+  border-radius: 6px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.search-btn:hover {
+  background-color: #3F3F46;
+}
+
+.profile-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.profile-dropdown:hover {
+  background-color: #27272A;
+}
+
+.dashboard-profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: contain;
+}
+
+.charts-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin-bottom: 32px;
+}
+
+.table-section {
+  background-color: #09090B;
+  border-radius: 16px;
+  border: 1px solid #27272A;
+  padding: 16px;
+}
+
+.see-all-btn {
+  padding: 8px 12px;
+  background-color: #27272A;
+  border: 1px solid #27272A;
+  border-radius: 6px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.see-all-btn:hover {
+  background-color: #3F3F46;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .charts-section {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .dashboard-content {
+    padding: 16px;
+  }
+  
+  .section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+  
+  .header-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+} 

@@ -1,0 +1,314 @@
+/* Logs Page - Exact Figma Design */
+.logs-page {
+  display: flex;
+  min-height: 100vh;
+  background-color: #121212;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+}
+
+.logs-container {
+  width: 100%;
+  max-width: 1650px;
+  margin: 0 auto;
+  background: #09090B;
+  border-radius: 16px;
+  margin-top: 10px;
+  overflow: hidden;
+}
+
+/* Header Section */
+.logs-header {
+  padding: 35px 24px 0 24px;
+}
+
+.logs-header-content {
+  margin-bottom: 24px;
+}
+
+.logs-header-flex {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.logs-header-button {
+  width: 28px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  cursor: pointer;
+}
+
+.logs-separator {
+  width: 0;
+  height: 15px;
+  border-left: 1px solid #E4E4E7;
+  margin: 0 8px;
+}
+
+.logs-breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #fff;
+}
+
+.logs-breadcrumb-item {
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.2857142857142858em;
+}
+
+.logs-header-line {
+  height: 1px;
+  background: rgba(9, 9, 11, 0.95);
+  margin-top: -5px;
+}
+
+.logs-header-line-secondary {
+  height: 1px;
+  background: #27272A;
+  margin: 0;
+}
+
+/* Form Section */
+.logs-form-section {
+  padding: 0 24px 48px 24px;
+}
+
+.logs-form-header {
+  padding: 10px;
+  margin-top: 10px;
+}
+
+.logs-form-title {
+  color: #fff;
+  font-size: 36px;
+  font-weight: 400;
+  margin-top: 20px;
+  line-height: 1em;
+}
+
+.logs-profile-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.logs-profile-img {
+  width: 40px;
+  height: 40px;
+  margin-left: 1525px;
+  border-radius: 50%;
+  object-fit: contain;
+  margin-top: -75px;
+}
+
+.logs-form-line {
+  height: 1px;
+  background: #27272A;
+  margin: 20px 0 20px 0;
+}
+
+.logs-form {
+  margin-bottom: 32px;
+}
+
+.logs-form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+}
+
+.logs-form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.logs-form-label {
+  color: rgba(214, 221, 230, 0.8);
+  font-family: 'Plus Jakarta Sans';
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 1.3333333333333333em;
+  
+}
+
+input[type="date"] {
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  border-radius: 4px;
+}
+
+/* Change the color of the calendar icon */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter:  brightness(0) invert(0.7); /* Inverts the color (white icon on dark background) */
+  opacity: 0.8;
+  cursor: pointer;
+}
+
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  opacity: 1;
+}
+
+.logs-form-select-wrapper {
+  position: relative;
+}
+
+.logs-form-select-wrapper::after {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 12px;
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+/* Dropdown options styling */
+.logs-form-select option {
+  background: #2a2a2a; /* Dark background for options */
+  color: #fff;
+}
+
+.logs-form-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  color: #71717A;
+  font-size: 16px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.logs-form-input
+.logs-form-select {
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  
+}
+
+.logs-form-input:focus {
+  border: #84E931;
+}
+
+.logs-form-input::placeholder {
+  color: #71717A;
+}
+
+.logs-form-submit {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 16px;
+}
+
+.logs-submit-btn {
+  background: #31CA2C;
+  width: 100%;
+  margin-top: 50px;
+  color: rgba(9, 9, 11, 0.95);
+  font-family: 'Inter';
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1em;
+  border: 1px solid #2C2C2C;
+  border-radius: 8px;
+  padding: 0.75rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.logs-submit-btn:hover {
+  background: #84E931;
+}
+
+/* Logs List Section */
+.logs-list-section {
+  margin-top: 32px;
+}
+
+.logs-list-title {
+  color: rgba(214, 221, 230, 0.8);
+  font-size: 22px;
+  font-weight: 500;
+  margin-bottom: 16px;
+}
+
+.logs-list-container {
+  border-radius: 12px;
+  overflow: hidden;
+  background: #18181B;
+  border: 1px solid #27272A;
+}
+
+.logs-table {
+  width: 100%;
+  border-collapse: collapse;
+  color: #fff;
+}
+
+.logs-table thead tr {
+  background: #232326;
+}
+
+.logs-table th {
+  padding: 12px 16px;
+  color: #84E931;
+  font-weight: 700;
+  font-size: 16px;
+  text-align: left;
+}
+
+.logs-table td {
+  padding: 12px 16px;
+  font-size: 16px;
+  border-bottom: 1px solid #27272A;
+}
+
+.logs-empty {
+  color: #71717A;
+  text-align: center;
+  padding: 32px;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .logs-container {
+    margin: 16px;
+    max-width: none;
+  }
+  
+  .logs-form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .logs-header {
+    padding: 20px 16px 0 16px;
+  }
+  
+  .logs-form-section {
+    padding: 0 16px 32px 16px;
+  }
+  
+  .logs-form-title {
+    font-size: 28px;
+  }
+  
+  .logs-breadcrumb-item {
+    font-size: 20px;
+  }
+} 

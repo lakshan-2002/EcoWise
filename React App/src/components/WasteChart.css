@@ -1,0 +1,157 @@
+/* Waste Chart Styles */
+.waste-chart-card {
+  background-color: #09090B;
+  border: 1px solid #27272A;
+  border-radius: 16px;
+  padding: 24px;
+  height: 320px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.chart-header h3 {
+  font-size: 14px;
+  font-weight: 500;
+  color: #71717A;
+  margin: 0;
+}
+
+.chart-container {
+  display: flex;
+  flex-direction: row;
+  gap: 24px;
+  align-items: center;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+
+.chart-wrapper {
+  width: 200px; 
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  margin-bottom: 20px;
+  margin-left: 0; 
+}
+
+.pie-chart {
+  width: 200px;
+  height: 200px;
+}
+
+
+.pie-chart svg {
+  width: 100%;
+  height: 100%;
+}
+
+.chart-legend {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1;
+  margin-bottom: 20px;
+}
+
+.legend-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+}
+
+.legend-color {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 0 0 0;
+  width: 100%;
+}
+
+.legend-category {
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  flex: 1 1 0;
+  min-width: 90px; /* Adjust as needed */
+}
+
+.legend-amount {
+  font-size: 14px;
+  font-weight: 500;
+  color: #FFFFFF;
+  flex: 1 1 0;
+  min-width: 70px; /* Adjust as needed */
+  text-align: center;
+  margin-left: 0; /* Remove fixed margin */
+}
+
+.legend-percentage {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(214, 221, 230, 0.8);
+  flex: 1 1 0;
+  text-align: right;
+  min-width: 40px;
+  margin-left: 0; /* Remove fixed margin */
+}
+
+.see-all-btn {
+  padding: 8px 12px;
+  background-color: #27272A;
+  border: 1px solid #27272A;
+  border-radius: 6px;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.see-all-btn:hover {
+  background-color: #3F3F46;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .chart-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .chart-legend {
+    width: 100%;
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 768px) {
+  .waste-chart-card {
+    padding: 16px;
+  }
+  
+  .pie-chart {
+    width: 150px;
+    height: 150px;
+  }
+  
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+} 
