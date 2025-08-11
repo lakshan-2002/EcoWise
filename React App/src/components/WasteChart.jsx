@@ -1,11 +1,14 @@
 import React from 'react';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend } from 'chart.js';
 import { Doughnut } from 'react-chartjs-2';
+import { useNavigate } from 'react-router-dom';
 import './WasteChart.css';
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
 function WasteChart() {
+  const navigate = useNavigate();
+
   const wasteData = [
     { category: 'Fruits', amount: 4.5, percentage: 31, color: '#3B33DD' },
     { category: 'Vegetables', amount: 3.2, percentage: 22, color: '#E23670' },
@@ -38,7 +41,11 @@ function WasteChart() {
     <div className="waste-chart-card">
       <div className="chart-header">
         <h3>Top Food Categories Wasted</h3>
-        <button className="see-all-btn">See All</button>
+        <button 
+          className="see-all-btn"
+          onClick={() => navigate('/analytics')}>
+            See All
+        </button>
       </div>
       <div className="chart-container">
         <div className="chart-wrapper">

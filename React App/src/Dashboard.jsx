@@ -58,7 +58,6 @@ function Dashboard() {
           <div className="table-section">
             <div className="section-header">
               <h2>Recent Waste Logs</h2>
-              <button className="see-all-btn">See All</button>
             </div>
             <WasteTable />
           </div>

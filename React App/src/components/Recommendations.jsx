@@ -1,7 +1,11 @@
 import React from 'react';
+import { useState } from 'react';
 import './Recommendations.css';
+import { useNavigate } from 'react-router-dom';
 
 function Recommendations() {
+  const navigate = useNavigate();
+
   const recommendations = [
     {
       id: 1,
@@ -38,7 +42,11 @@ function Recommendations() {
     <div className="recommendations-card">
       <div className="recommendations-header">
         <h3>Recommendations Just for You</h3>
-        <button className="see-all-btn">See All</button>
+        <button 
+          className="see-all-btn" 
+          onClick={() => navigate('/recommendations')}>
+            See All
+        </button>
       </div>
       
       <div className="recommendations-list">

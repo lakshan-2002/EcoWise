@@ -7,7 +7,6 @@ function OverviewCards() {
       <div className="card total-waste">
         <div className="card-header">
           <h3>Total Waste this month</h3>
-          <button className="see-all-btn">See All</button>
         </div>
         <div className="card-content">
           <div className="waste-amount">
