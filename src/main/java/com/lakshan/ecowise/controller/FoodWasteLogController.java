@@ -10,6 +10,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/food_waste_logs")
+@CrossOrigin(origins = "*")
 public class FoodWasteLogController {
 
     private final FoodWasteLogService foodWasteLogService;
