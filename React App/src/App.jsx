@@ -5,7 +5,9 @@ import SignupPage from "./SignupPage";
 import Dashboard from "./Dashboard";
 import Logs from "./Logs";
 import Analytics from "./Analytics";
-import Recommendations from './RecommendationsPage';
+import RecommendationsPage from './RecommendationsPage';
+import Recommendations from "./components/Recommendations";
+import WasteChart from './components/WasteChart';
 
 const App = () => {
   return (
@@ -30,8 +32,11 @@ const App = () => {
           {/* Analytics page */}
           <Route path="/analytics" element={<Analytics />} />
 
+          <Route path="/" element={<Recommendations />} />
+          <Route path="/" element={<WasteChart />} />
+
           {/* Recommendations page */}
-          <Route path="/recommendations" element={<Recommendations />} />
+          <Route path="/recommendations" element={<RecommendationsPage />} />
 
           {/* Catch all - redirect to login */}
           <Route path="*" element={<Navigate to="/login" replace />} />
