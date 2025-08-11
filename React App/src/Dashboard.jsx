@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
+import myProfile from './assets/myProfile.png';
 import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import OverviewCards from './components/OverviewCards';
@@ -41,10 +42,7 @@ function Dashboard() {
                   Search
                 </button>
                 <div className="profile-dropdown">
-                  <img src="/profile-avatar.png" alt="Profile" className="profile-avatar" />
-                  <svg width="12" height="6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <polyline points="6,9 12,15 18,9"/>
-                  </svg>
+                  <img src={myProfile} alt="profile" className='dashboard-profile-img'/>
                 </div>
               </div>
             </div>

@@ -81,11 +81,11 @@
   background-color: #27272A;
 }
 
-.profile-avatar {
-  width: 32px;
-  height: 32px;
+.dashboard-profile-img {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  object-fit: cover;
+  object-fit: contain;
 }
 
 .charts-section {
