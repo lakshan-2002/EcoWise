@@ -20,7 +20,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 24px;
+  padding: 25px;
   box-sizing: border-box;
 }
 
@@ -101,8 +101,27 @@
 .analytics-title {
   font-size: 36px;
   font-weight: 400;
-  margin: 0 0 24px 0;
+  margin: 0 0 24px 15px;
   color: #FFFFFF;
+}
+
+.analytics-profile-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.analytics-profile-img {
+  width: 40px;
+  height: 40px;
+  margin-left: 1525px;
+  border-radius: 50%;
+  object-fit: contain;
+  margin-top: -100px;
 }
 
 .charts-container {

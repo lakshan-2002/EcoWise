@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import myProfile from './assets/myProfile.png';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
 import Sidebar from './components/Sidebar';
@@ -151,7 +152,9 @@ function Analytics() {
 
         <div className="analytics-content">
           <h1 className="analytics-title">Analytics</h1>
-          
+          <div className="analytics-profile-dropdown">
+            <img src={myProfile} alt="profile" className='analytics-profile-img'/>
+          </div>
           <div className="charts-container">
             <div className="chart-section">
               <div className="pie-chart-container">
