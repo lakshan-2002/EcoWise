@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import myProfile from './assets/myProfile.png';
 import './RecommendationsPage.css';
 import Sidebar from './components/Sidebar';
 
@@ -151,8 +152,11 @@ function RecommendationsPage() {
           <div className="page-header">
             <h1>Recommendations</h1>
           </div>
-          <div className='recommendations-divider'></div>
-
+          <div className="recommendations-profile-dropdown">
+            <img src={myProfile} alt="profile" className='recommendations-profile-img'/>
+            <div className='recommendations-divider'></div>
+          </div>
+          
           {/* Quick Actions Section */}
           <div className="quick-actions-section">
             <div className="section-header">
