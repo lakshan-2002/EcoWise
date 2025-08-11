@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
+import myProfile from './assets/myProfile.png';
 import './Logs.css';
 
 const Logs = () => {
@@ -72,6 +73,9 @@ const Logs = () => {
         <div className="logs-form-section">
           <div className="logs-form-header">
             <h2 className="logs-form-title">Add New Log</h2>
+          </div>
+          <div className="logs-profile-dropdown">
+            <img src={myProfile} alt="profile" className='logs-profile-img'/>
           </div>
           <div className="logs-form-line"></div>
           

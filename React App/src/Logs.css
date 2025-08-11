@@ -92,10 +92,29 @@
   line-height: 1em;
 }
 
+.logs-profile-dropdown {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.logs-profile-img {
+  width: 40px;
+  height: 40px;
+  margin-left: 1525px;
+  border-radius: 50%;
+  object-fit: contain;
+  margin-top: -75px;
+}
+
 .logs-form-line {
   height: 1px;
   background: #27272A;
-  margin: 30px 0 20px 0;
+  margin: 20px 0 20px 0;
 }
 
 .logs-form {
