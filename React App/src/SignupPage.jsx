@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './SignupPage.css';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function SignupPage() {
   const navigate = useNavigate();
@@ -61,14 +63,26 @@ function SignupPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     
     if (validateForm()) {
-      // Simulate signup process
-      console.log('Signup data:', formData);
-      alert('Account created successfully!');
-      navigate('/dashboard');
+      try {
+      const response = await axios.post("http://localhost:8080/users/addUser", {
+        name: formData.name,
+        email: formData.email,
+        password: formData.password,
+        confirmPassword: formData.confirmPassword
+      });
+
+      console.log("Signup success:", response.data);
+      toast.success("Signup successful!");
+      navigate("/login");
+    } catch (error) {
+      console.error("Signup error:", error);
+      toast.error("Signup failed. Please try again.");
+    }
+
     }
   };
 
