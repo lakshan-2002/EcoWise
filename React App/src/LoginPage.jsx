@@ -58,11 +58,15 @@ function LoginPage() {
         localStorage.setItem('user', JSON.stringify(response.data));
 
         console.log("Login success:", response.data);
-        toast.success("Login successful!");
+        toast.success("Login successful!", {
+          className: "my-success-toast"
+        });
         navigate("/dashboard");
       } catch (error) {
         console.error("Login error:", error);
-        toast.error("Login failed. Please try again.");
+        toast.error("Login failed. Please try again.", {
+          className: "my-error-toast"
+        });
       }
     }
   };

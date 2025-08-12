@@ -17,6 +17,16 @@ body {
   line-height: 1.5;
 }
 
+.my-success-toast {
+  color: black !important;
+  font-weight: 300;
+}
+
+.my-error-toast {
+  color: black !important;
+  font-weight: 300;
+}
+
 #root {
   min-height: 100vh;
 }

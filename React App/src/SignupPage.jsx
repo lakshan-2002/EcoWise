@@ -76,11 +76,15 @@ function SignupPage() {
       });
 
       console.log("Signup success:", response.data);
-      toast.success("Signup successful!");
+      toast.success("Signup successful!", {
+        className: "my-success-toast"
+      });
       navigate("/login");
     } catch (error) {
       console.error("Signup error:", error);
-      toast.error("Signup failed. Please try again.");
+      toast.error("Signup failed. Please try again.", {
+        className: "my-error-toast"
+      });
     }
 
     }

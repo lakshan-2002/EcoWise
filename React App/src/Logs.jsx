@@ -7,6 +7,7 @@ import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 const Logs = () => {
+  const [loading, setLoading] = useState(false);
   const [form, setForm] = useState({
     itemName: '',
     category: '',
@@ -32,6 +33,8 @@ const Logs = () => {
 
   const handleSubmit = async(e) => {
     e.preventDefault();
+    setLoading(true);
+
     if(!user){
       console.error("User not logged in");
       return;
@@ -43,10 +46,17 @@ const Logs = () => {
     try {
       const response = await axios.post("http://localhost:8080/food_waste_logs/addFoodWasteItem", formDataWithUser);
       setLogs([...logs, { ...form, id: response.data.id }]);
-      toast.success("Log added successfully!");
+      toast.success("Log added successfully!", {
+        className: "my-success-toast"
+      });
     } catch (error) {
       console.error("Error adding log:", error);
-      toast.error("Error adding log");
+      toast.error("Error adding log", {
+        className: "my-error-toast"
+      });
+    }
+    finally {
+      setLoading(false);
     }
   };
 
@@ -183,7 +193,13 @@ const Logs = () => {
             </div>
             
             <div className="logs-form-submit">
-              <button type="submit" className="logs-submit-btn">Submit</button>
+              <button 
+                type="submit" 
+                className="logs-submit-btn" 
+                disabled={loading}
+              >
+                {loading ? 'Submitting...' : 'Submit'}
+              </button>
             </div>
           </form>
           
