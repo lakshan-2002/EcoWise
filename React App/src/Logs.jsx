@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Sidebar from './components/Sidebar';
 import myProfile from './assets/myProfile.png';
 import './Logs.css';
+import axios from 'axios';
+import { useEffect } from 'react';
+import { toast } from 'react-toastify';
 
 const Logs = () => {
   const [form, setForm] = useState({
@@ -13,31 +16,44 @@ const Logs = () => {
     wastedDate: ''
   });
   const [logs, setLogs] = useState([]);
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('user');
+    console.log('Logged in user:', loggedInUser);
+    if (loggedInUser) {
+      setUser(JSON.parse(loggedInUser));
+    }
+  }, []);
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    setLogs([
-      ...logs,
-      { ...form, id: Date.now() }
-    ]);
-    setForm({
-      itemName: '',
-      category: '',
-      quantity: '',
-      unit: '',
-      reason: '',
-      wastedDate: ''
-    });
+    if(!user){
+      console.error("User not logged in");
+      return;
+    }
+
+    const formDataWithUser = { ...form, user: user };
+    console.log("Submitting log with data:", formDataWithUser);
+
+    try {
+      const response = await axios.post("http://localhost:8080/food_waste_logs/addFoodWasteItem", formDataWithUser);
+      setLogs([...logs, { ...form, id: response.data.id }]);
+      toast.success("Log added successfully!");
+    } catch (error) {
+      console.error("Error adding log:", error);
+      toast.error("Error adding log");
+    }
   };
 
    const handleLogout = () => {
     // Simulate logout process
     console.log('Logging out...');
-    alert('Logged out successfully!');
+    toast.success('Logged out successfully!');
     navigate('/login');
   };
 
@@ -104,11 +120,11 @@ const Logs = () => {
                     required
                   >
                     <option value="">Select a category</option>
-                    <option value="Vegetable">Vegetables</option>
-                    <option value="Fruit">Fruits</option>
-                    <option value="Grain">Grains & Bakery</option>
-                    <option value="Dairy">Dairy & Eggs</option>
-                    <option value="Meat">Cooked / Leftovers</option>
+                    <option value="Vegetables">Vegetables</option>
+                    <option value="Fruits">Fruits</option>
+                    <option value="Grains & Bakery">Grains & Bakery</option>
+                    <option value="Dairy & Eggs">Dairy & Eggs</option>
+                    <option value="Cooked / Leftovers">Cooked / Leftovers</option>
                     <option value="Other">Other</option>
                   </select>
                 </div>

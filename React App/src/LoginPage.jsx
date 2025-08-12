@@ -55,6 +55,8 @@ function LoginPage() {
           password: formData.password
         });
 
+        localStorage.setItem('user', JSON.stringify(response.data));
+
         console.log("Login success:", response.data);
         toast.success("Login successful!");
         navigate("/dashboard");
