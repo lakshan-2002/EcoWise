@@ -36,6 +36,11 @@ public class FoodWasteLogController {
         return foodWasteLogService.getAllFoodWasteLogs();
     }
 
+    @GetMapping("/getFoodWasteItemsByUserId/{userId}")
+    public List<FoodWasteLog> getFoodWasteLogsByUserId(@PathVariable int userId) {
+        return foodWasteLogService.getFoodWasteLogsByUserId(userId);
+    }
+
     @PutMapping("/updateFoodWasteItem")
     public ResponseEntity<FoodWasteLog> updateFoodWasteLog(@RequestBody FoodWasteLog foodWasteLog) {
         foodWasteLogService.updateFoodWasteLog(foodWasteLog);
