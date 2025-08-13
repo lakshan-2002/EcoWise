@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import myProfile from './assets/myProfile.png';
 import './RecommendationsPage.css';
 import Sidebar from './components/Sidebar';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function RecommendationsPage() {
   const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
-
+  const [recommendations, setRecommendations] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(5);
+  
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
@@ -25,65 +29,54 @@ function RecommendationsPage() {
     alert('Added to plan successfully!');
   };
 
-  const recommendations = [
-    {
-      id: 1,
-      category: 'Fruits',
-      message: 'Store ripe fruits in the fridge to extend their freshness and reduce spoilage',
-      priority: 'High'
-    },
-    {
-      id: 2,
-      category: 'Fruits',
-      message: 'Buy fruits in smaller batches more frequently to avoid overripe waste',
-      priority: 'Medium'
-    },
-    {
-      id: 3,
-      category: 'Fruits',
-      message: 'Freeze overripe bananas, mangoes, or berries to use later in smoothies or baking',
-      priority: 'Low'
-    },
-    {
-      id: 4,
-      category: 'Vegetables',
-      message: 'Chop and freeze extra vegetables before they spoil to use in future meals',
-      priority: 'High'
-    },
-    {
-      id: 5,
-      category: 'Vegetables',
-      message: 'Use a \'first-in, first-out\' rule in your fridge to make sure older veggies get used first',
-      priority: 'Low'
-    }
-  ];
+  useEffect(() => {
+      const loggedInUser = localStorage.getItem('user');
+      if(!loggedInUser){
+        console.log('No user logged in');
+        toast.error("You must be logged in to view recommendations", {
+          className: "my-error-toast"
+        });
+      }
+  
+      const fetchRecommendations = async () => {
+        try{
+          const loggedInUser = JSON.parse(localStorage.getItem('user'));
+          const response = await axios.get(`http://localhost:8080/recommendations/getRecommendationsByUserId/${loggedInUser.id}`);
+          setRecommendations(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error("Error fetching recommendations:", error);
+          toast.error("Error fetching recommendations", {
+            className: "my-error-toast"
+          });
+        }
+      };
+  
+      fetchRecommendations();
+    }, []);
 
-  const quickActions = [
-    {
-      id: 1,
-      title: 'Freeze overripe fruits today to prevent waste tomorrow',
-      category: 'Fruits',
-      priority: 'Medium'
-    },
-    {
-      id: 2,
-      title: 'Check your fridge for vegetables nearing expiry — cook or prep them now!',
-      category: 'Vegetables',
-      priority: 'High'
-    },
-    {
-      id: 3,
-      title: 'Plan your next three meals with what you already have at home.',
-      category: 'Cooked / Leftovers',
-      priority: 'Low'
-    },
-    {
-      id: 4,
-      title: 'Chop and freeze extra vegetables before they go bad to use in soups or stir-fries later.',
-      category: 'Vegetables',
-      priority: 'Low'
-    }
-  ];
+  const quickActions = React.useMemo(() => {
+  if (!recommendations.length) return [];
+
+  
+  const urgent = recommendations.filter(
+    rec => rec.priority === "High" || rec.priority === "Medium"
+  );
+
+  urgent.sort((a, b) => {
+    const priorityOrder = { High: 1, Medium: 2, Low: 3 };
+    return priorityOrder[a.priority] - priorityOrder[b.priority];
+  });
+
+  
+  return urgent.slice(0, 4).map(rec => ({
+    id: rec.id,
+    title: rec.message,
+    category: rec.category,
+    priority: rec.priority
+  }));
+}, [recommendations]);
+
 
   const getPriorityColor = (priority) => {
     switch (priority) {
@@ -98,7 +91,7 @@ function RecommendationsPage() {
     }
   };
 
-  const filteredRecommendations = recommendations.filter(rec => 
+  const filteredRecommendations = recommendations.filter(rec =>
     rec.message.toLowerCase().includes(searchTerm.toLowerCase()) &&
     (selectedCategory === 'All' || rec.category === selectedCategory)
   );
@@ -264,7 +257,7 @@ function RecommendationsPage() {
               </div>
 
               <div className="table-body">
-                {filteredRecommendations.map((rec) => (
+                {filteredRecommendations.slice(0, visibleCount).map((rec) => (
                   <div key={rec.id} className="table-row">
                     <div className="table-cell category-cell">
                       {rec.category}
@@ -293,13 +286,24 @@ function RecommendationsPage() {
                         Add to Plan
                       </button>
                     </div>
-                  </div>
+                  </div>       
                 ))}
+                {visibleCount < recommendations.length && (
+                <div style={{ marginLeft: 1500, marginTop: 10 }}>
+                  <span
+                    style={{ color: "White", cursor: "pointer" }}
+                    onClick={() => setVisibleCount(recommendations.length)}
+                  >
+                    View All
+                  </span>
+                </div>
+                )}           
               </div>
             </div>
           </div>
         </div>
       </div>
+      
     );
 }
 

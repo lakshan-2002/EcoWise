@@ -255,14 +255,14 @@
 .message-column {
   flex: 1;
   min-width: 400px;
-  padding-left: 300px;
+  padding-left: 200px;
 }
 
 .message-cell {
   flex: 1;
   min-width: 400px;
   max-width: 1050px !important;
-  padding-left: 300px !important;
+  padding-left: 200px !important;
   word-break: normal;
   white-space: normal;
 }
