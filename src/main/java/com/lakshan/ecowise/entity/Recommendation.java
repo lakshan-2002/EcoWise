@@ -23,6 +23,10 @@ public class Recommendation {
     @JoinColumn(name = "waste_log_id")
     private FoodWasteLog foodWasteLog;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     public int getId() {
         return id;
     }
@@ -61,5 +65,13 @@ public class Recommendation {
 
     public void setFoodWasteLog(FoodWasteLog foodWasteLog) {
         this.foodWasteLog = foodWasteLog;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
