@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './LoginPage.css';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function LoginPage() {
   const navigate = useNavigate();
@@ -43,14 +45,29 @@ function LoginPage() {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
     
     if (validateForm()) {
-      // Simulate login process
-      console.log('Login data:', formData, 'Remember me:', rememberMe);
-      alert('Login successful!');
-      navigate('/dashboard');
+      try {
+        const response = await axios.post("http://localhost:8080/users/login", {
+          email: formData.email,
+          password: formData.password
+        });
+
+        localStorage.setItem('user', JSON.stringify(response.data));
+
+        console.log("Login success:", response.data);
+        toast.success("Login successful!", {
+          className: "my-success-toast"
+        });
+        navigate("/dashboard");
+      } catch (error) {
+        console.error("Login error:", error);
+        toast.error("Login failed. Please try again.", {
+          className: "my-error-toast"
+        });
+      }
     }
   };
 

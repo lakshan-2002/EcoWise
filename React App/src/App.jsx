@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import LoginPage from "./LoginPage";
 import SignupPage from "./SignupPage";
 import Dashboard from "./Dashboard";
@@ -41,6 +42,12 @@ const App = () => {
           {/* Catch all - redirect to login */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
+
+         <ToastContainer 
+            position="top-right" 
+            autoClose={3000} 
+            hideProgressBar={false} 
+          />
       </div>
     </Router>
   );
