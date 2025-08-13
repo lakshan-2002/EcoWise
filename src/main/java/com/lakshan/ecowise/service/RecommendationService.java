@@ -61,4 +61,12 @@ public class RecommendationService {
         }
         return recommendations;
     }
+
+    public List<Recommendation> getRecommendationsByUserId(int userId) {
+        var recommendations = recommendationRepository.findByUserId(userId);
+        if (recommendations.isEmpty()) {
+            throw new RuntimeException("No recommendations found for user with id: " + userId);
+        }
+        return recommendations;
+    }
 }

@@ -79,4 +79,12 @@ public class FoodWasteLogService {
             throw new RuntimeException("Food waste log not found with id: " + id);
         }
     }
+
+    public List<FoodWasteLog> getFoodWasteLogsByUserId(int userId) {
+        var foodWasteLogs = foodWasteLogRepository.findByUserId(userId);
+        if(foodWasteLogs.isEmpty()) {
+            throw new RuntimeException("No food waste logs found for user with id: " + userId);
+        }
+        return foodWasteLogs;
+    }
 }

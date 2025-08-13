@@ -29,4 +29,9 @@ public class RecommendationController {
     public List<Recommendation> getRecommendationsByWasteLogId(@PathVariable int wasteLogId) {
         return recommendationService.getRecommendationsByWasteLogId(wasteLogId);
     }
+
+    @GetMapping("/getRecommendationsByUserId/{userId}")
+    public List<Recommendation> getRecommendationsByUserId(@PathVariable int userId) {
+        return recommendationService.getRecommendationsByUserId(userId);
+    }
 }

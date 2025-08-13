@@ -10,4 +10,6 @@ import java.util.Optional;
 @Repository
 public interface RecommendationRepository extends JpaRepository<Recommendation, Integer> {
     List<Recommendation> findByFoodWasteLogId(int wasteLogId);
+
+    List<Recommendation> findByUserId(int userId);
 }
