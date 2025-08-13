@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
 import myProfile from './assets/myProfile.png';
@@ -8,10 +8,14 @@ import OverviewCards from './components/OverviewCards';
 import WasteChart from './components/WasteChart';
 import Recommendations from './components/Recommendations';
 import WasteTable from './components/WasteTable';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 function Dashboard() {
   const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [recommendations, setRecommendations] = useState([]);
+  const [wasteLogs, setWasteLogs] = useState([]);
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
@@ -23,6 +27,58 @@ function Dashboard() {
     alert('Logged out successfully!');
     navigate('/login');
   };
+
+  useEffect(() => {
+      const loggedInUser = localStorage.getItem('user');
+      if(!loggedInUser){
+        console.log('No user logged in');
+        toast.error("You must be logged in to view recommendations", {
+          className: "my-error-toast"
+        });
+      }
+  
+      const fetchRecommendations = async () => {
+        try{
+          const loggedInUser = JSON.parse(localStorage.getItem('user'));
+          const response = await axios.get(`http://localhost:8080/recommendations/getRecommendationsByUserId/${loggedInUser.id}`);
+          setRecommendations(response.data);
+          console.log(response.data);
+        } catch (error) {
+          console.error("Error fetching recommendations:", error);
+          toast.error("Error fetching recommendations", {
+            className: "my-error-toast"
+          });
+        }
+      };
+  
+      fetchRecommendations();
+    }, []);
+
+
+     useEffect(() => {
+      const loggedInUser = localStorage.getItem('user');
+      console.log('Logged in user:', loggedInUser);
+      if (!loggedInUser) {
+        toast.error("You must be logged in to view waste logs", {
+          className: "my-error-toast"
+        });
+      }
+
+    const fetchWasteLogs = async () => {
+      try {
+        const loggedInUser = JSON.parse(localStorage.getItem('user'));
+        const response = await axios.get(`http://localhost:8080/food_waste_logs/getFoodWasteItemsByUserId/${loggedInUser.id}`);
+        setWasteLogs(response.data);
+      } catch (error) {
+        console.error("Error fetching waste logs:", error);
+        toast.error("Error fetching waste logs", {
+          className: "my-error-toast"
+        });
+      }
+    };
+
+    fetchWasteLogs();
+    }, []);
 
   return (
     <div className="dashboard">
@@ -52,7 +108,7 @@ function Dashboard() {
           
           <div className="charts-section">
             <WasteChart />
-            <Recommendations />
+            <Recommendations recommendationsData={recommendations} />
           </div>
 
           <div className="table-section">
