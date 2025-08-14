@@ -2,6 +2,7 @@ package com.lakshan.ecowise.service;
 
 import com.lakshan.ecowise.entity.FoodWasteLog;
 import com.lakshan.ecowise.entity.Recommendation;
+import com.lakshan.ecowise.entity.User;
 import com.lakshan.ecowise.model.AiRecommendationDTO;
 import com.lakshan.ecowise.repository.RecommendationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,22 +28,28 @@ public class RecommendationService {
         this.aiRecommendationDTO = aiRecommendationDTO;
     }
 
-    public void saveRecommendations(String prompt, String category, FoodWasteLog foodWasteLog) {
+    public void saveRecommendations(String prompt,
+                                    String category,
+                                    FoodWasteLog foodWasteLog,
+                                    User user
+    ) {
         String chatResponse = aiService.chat(prompt);
         var dataList = aiRecommendationDTO.parseRecommendations(chatResponse);
 
         for (var data : dataList) {
-            addNewRecommendation(data, category, foodWasteLog);
+            addNewRecommendation(data, category, foodWasteLog, user);
         }
 
     }
 
     public void addNewRecommendation(AiRecommendationDTO recommendationDTO,
                                      String category,
-                                     FoodWasteLog foodWasteLog
+                                     FoodWasteLog foodWasteLog,
+                                     User user
     ) {
         Recommendation recommendation = new Recommendation();
         recommendation.setFoodWasteLog(foodWasteLog);
+        recommendation.setUser(user);
         recommendation.setCategory(category);
         recommendation.setMessage(recommendationDTO.getMessage());
         recommendation.setPriority(recommendationDTO.getPriority());
@@ -54,7 +61,7 @@ public class RecommendationService {
         return recommendationRepository.findAll();
     }
 
-    public List<Recommendation> getRecommendationsByWasteLogId(int id){
+    public List<Recommendation> getRecommendationsByWasteLogId(int id) {
         var recommendations = recommendationRepository.findByFoodWasteLogId(id);
         if (recommendations.isEmpty()) {
             throw new RuntimeException("No recommendations found for food waste log with id: " + id);
