@@ -35,7 +35,11 @@ public class FoodWasteLogService {
                 foodWasteLog.getItemName(),
                 foodWasteLog.getReason()
         );
-        recommendationService.saveRecommendations(prompt, foodWasteLog.getCategory(), foodWasteLog);
+        recommendationService.saveRecommendations(prompt,
+                foodWasteLog.getCategory(),
+                foodWasteLog,
+                foodWasteLog.getUser()
+        );
 
     }
 
@@ -65,7 +69,11 @@ public class FoodWasteLogService {
                     foodWasteLog.getItemName(),
                     foodWasteLog.getReason()
             );
-            recommendationService.saveRecommendations(prompt, foodWasteLog.getCategory(), foodWasteLog);
+            recommendationService.saveRecommendations(prompt,
+                    foodWasteLog.getCategory(),
+                    foodWasteLog,
+                    foodWasteLog.getUser()
+            );
 
         } else {
             throw new RuntimeException("Food waste log not found with id: " + foodWasteLog.getId());
@@ -82,7 +90,7 @@ public class FoodWasteLogService {
 
     public List<FoodWasteLog> getFoodWasteLogsByUserId(int userId) {
         var foodWasteLogs = foodWasteLogRepository.findByUserId(userId);
-        if(foodWasteLogs.isEmpty()) {
+        if (foodWasteLogs.isEmpty()) {
             throw new RuntimeException("No food waste logs found for user with id: " + userId);
         }
         return foodWasteLogs;
