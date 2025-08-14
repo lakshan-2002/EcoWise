@@ -1,54 +1,38 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import './WasteTable.css';
+import axios from 'axios';  
+import { toast } from 'react-toastify';
 
 function WasteTable() {
-  const wasteLogs = [
-    {
-      id: 1,
-      itemName: 'Apples',
-      category: 'Fruits',
-      quantity: 4,
-      unit: 'pcs',
-      reason: 'Spoiled',
-      wastedDate: '2025-06-24'
-    },
-    {
-      id: 2,
-      itemName: 'Cooked Rice',
-      category: 'Cooked / Leftovers',
-      quantity: 250,
-      unit: 'g',
-      reason: 'Leftovers',
-      wastedDate: '2025-06-23'
-    },
-    {
-      id: 3,
-      itemName: 'Lettuce',
-      category: 'Leafy Greens',
-      quantity: 7,
-      unit: 'head',
-      reason: 'Wilted',
-      wastedDate: '2025-06-25'
-    },
-    {
-      id: 4,
-      itemName: 'Milk',
-      category: 'Dairy & Eggs',
-      quantity: 325,
-      unit: 'ml',
-      reason: 'Expired',
-      wastedDate: '2025-06-18'
-    },
-    {
-      id: 5,
-      itemName: 'Bread',
-      category: 'Grains & Bakery',
-      quantity: 10,
-      unit: 'slices',
-      reason: 'Moldy',
-      wastedDate: '2025-06-27'
-    }
-  ];
+  const [wasteLogs, setWasteLogs] = useState([]);
+  const [visibleCount, setVisibleCount] = useState(5);
+
+  useEffect(() => {
+      const loggedInUser = localStorage.getItem('user');
+      console.log('Logged in user:', loggedInUser);
+      if (!loggedInUser) {
+        toast.error("You must be logged in to view waste logs", {
+          className: "my-error-toast"
+        });
+      }
+
+    const fetchWasteLogs = async () => {
+      try {
+        const loggedInUser = JSON.parse(localStorage.getItem('user'));
+        const response = await axios.get(`http://localhost:8080/food_waste_logs/getFoodWasteItemsByUserId/${loggedInUser.id}`);
+        setWasteLogs(response.data);
+      } catch (error) {
+        console.error("Error fetching waste logs:", error);
+        toast.error("Error fetching waste logs", {
+          className: "my-error-toast"
+        });
+      }
+    };
+
+    fetchWasteLogs();
+    }, []);
+
 
   return (
     <div className="waste-table">
@@ -66,7 +50,7 @@ function WasteTable() {
             </tr>
           </thead>
           <tbody>
-            {wasteLogs.map((log) => (
+            {wasteLogs.slice(0, visibleCount).map((log) => (
               <tr key={log.id}>
                 <td>{log.itemName}</td>
                 <td>{log.category}</td>
@@ -86,6 +70,17 @@ function WasteTable() {
             ))}
           </tbody>
         </table>
+
+        {visibleCount < wasteLogs.length && (
+          <div style={{ textAlign: "right" }}>
+            <span
+              style={{ color: "white", cursor: "pointer" }}
+              onClick={() => setVisibleCount(wasteLogs.length)}
+            >
+              View More
+            </span>
+          </div>
+        )}
       </div>
     </div>
   );

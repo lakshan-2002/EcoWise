@@ -1,29 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
 import './Recommendations.css';
-import { useNavigate } from 'react-router-dom';
+import { useActionData, useNavigate } from 'react-router-dom';
+import Dashboard from '../Dashboard';
 
-function Recommendations() {
+
+function Recommendations({recommendationsData = []}) {
   const navigate = useNavigate();
 
-  const recommendations = [
-    {
-      id: 1,
-      text: "Plan your meals ahead and buy only what you need.",
-      priority: "High"
-    },
-    {
-      id: 2,
-      text: "Store your food properly using airtight containers and keep perishable items visible",
-      priority: "Medium"
-    },
-    {
-      id: 3,
-      text: "Get creative with leftovers by turning them into new meals",
-      priority: "Low"
-    },
-    
-  ];
+  const topThreeRecs = recommendationsData.slice(0, 3).map(rec => ({
+    id: rec.id,
+    text: rec.message,
+    priority: rec.priority
+  }));
 
   const getPriorityColor = (priority) => {
     switch (priority) {
@@ -50,7 +39,7 @@ function Recommendations() {
       </div>
       
       <div className="recommendations-list">
-        {recommendations.map((rec) => (
+        {topThreeRecs.map((rec) => (
           <div key={rec.id} className="recommendation-item">
             <div className="recommendation-content">
               <span className="recommendation-text">{rec.text}</span>
