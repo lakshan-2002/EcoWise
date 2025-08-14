@@ -10,12 +10,16 @@ import Recommendations from './components/Recommendations';
 import WasteTable from './components/WasteTable';
 import axios from 'axios';
 import { toast } from 'react-toastify';
+import { scryRenderedDOMComponentsWithTag } from 'react-dom/test-utils';
 
 function Dashboard() {
   const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [recommendations, setRecommendations] = useState([]);
-  const [wasteLogs, setWasteLogs] = useState([]);
+  const [wasteData, setWasteData] = useState([]);
+  const [topFourWasteItems, setTopFourWasteItems] = useState([]);
+  const [totalWaste, setTotalWaste] = useState([]);
+  const [mostWastedCategory, setMostWastedCategory] = useState([]);
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
@@ -28,6 +32,7 @@ function Dashboard() {
     navigate('/login');
   };
 
+  // Fetch recommendations when the component mounts
   useEffect(() => {
       const loggedInUser = localStorage.getItem('user');
       if(!loggedInUser){
@@ -42,7 +47,7 @@ function Dashboard() {
           const loggedInUser = JSON.parse(localStorage.getItem('user'));
           const response = await axios.get(`http://localhost:8080/recommendations/getRecommendationsByUserId/${loggedInUser.id}`);
           setRecommendations(response.data);
-          console.log(response.data);
+          
         } catch (error) {
           console.error("Error fetching recommendations:", error);
           toast.error("Error fetching recommendations", {
@@ -54,31 +59,109 @@ function Dashboard() {
       fetchRecommendations();
     }, []);
 
+  const unitToKgMap = {
+    g: 0.001,
+    mg: 0.000001,
+    kg: 1,
 
-     useEffect(() => {
-      const loggedInUser = localStorage.getItem('user');
-      console.log('Logged in user:', loggedInUser);
-      if (!loggedInUser) {
-        toast.error("You must be logged in to view waste logs", {
-          className: "my-error-toast"
-        });
-      }
+    l: 1,
+    ml: 0.001,
 
+    pcs: 0.15,     // average fruit/veg piece weight
+    bunches: 0.5,  // average bunch weight (like bananas or greens)
+    slices: 0.03,  // average slice (bread/fruit)
+  };
+
+  function convertToKg(quantity, unit) {
+    const conversionRate = unitToKgMap[unit.toLowerCase()] || 1;
+    return quantity * conversionRate;
+  }
+
+  useEffect(() => {
     const fetchWasteLogs = async () => {
-      try {
-        const loggedInUser = JSON.parse(localStorage.getItem('user'));
-        const response = await axios.get(`http://localhost:8080/food_waste_logs/getFoodWasteItemsByUserId/${loggedInUser.id}`);
-        setWasteLogs(response.data);
-      } catch (error) {
-        console.error("Error fetching waste logs:", error);
-        toast.error("Error fetching waste logs", {
-          className: "my-error-toast"
-        });
-      }
-    };
+    try {
+      const loggedInUser = JSON.parse(localStorage.getItem('user'));
+      const response = await axios.get(`http://localhost:8080/food_waste_logs/getFoodWasteItemsByUserId/${loggedInUser.id}`);
 
-    fetchWasteLogs();
-    }, []);
+      const convertedData = response.data.map(item => ({
+        ...item,
+        quantityInKg: convertToKg(item.quantity, item.unit)
+      }));
+      setWasteData(convertedData);
+
+
+    } catch (error) {
+      console.error("Error fetching waste logs:", error);
+      toast.error("Error fetching waste logs", {
+      className: "my-error-toast"
+      });
+    }
+  };
+
+  fetchWasteLogs();
+  }, []);
+
+  useEffect(() => {
+      if (wasteData.length === 0) return;
+  
+      const categories = [
+        "Fruits",
+        "Vegetables",
+        "Grains & Bakery",
+        "Cooked / Leftovers",
+        "Dairy & Eggs",
+        "Other"
+      ];
+  
+      const categoryColors = [
+        '#3B33DD', // Fruits
+        '#E23670', // Vegetables
+        '#B6B919', // Grains
+        '#E88C30', // Cooked
+        '#AF57DB', // Dairy
+        '#2EB88A', // Other
+      ];
+  
+      // Sum waste per category in kg
+      const totals = Object.fromEntries(categories.map(c => [c, 0]));
+  
+      wasteData.forEach(item => {
+        const cat = categories.includes(item.category) ? item.category : "Other";
+        totals[cat] += item.quantityInKg;
+      });
+
+       let sortedData = categories.map((c, i) => ({
+        category: c,
+        total: totals[c],
+        color: categoryColors[i]
+      }));
+
+      const wasteSum = sortedData.reduce((sum, item) => sum + item.total, 0).toFixed(2);
+
+      // Sort by total descending
+      sortedData.sort((a, b) => b.total - a.total);
+
+      // Take top 4
+      sortedData = sortedData.slice(0, 4);
+
+      const totalsArray = sortedData.map(d => d.total);
+      const totalWaste = totalsArray.reduce((sum, val) => sum + val, 0).toFixed(2);
+      const percentages = totalsArray.map(val => ((val / totalWaste) * 100).toFixed(2));
+
+      const topFourWasteItems = sortedData.map((item, index) => ({
+        category: item.category,
+        amount: item.total.toFixed(2),
+        percentage: percentages[index],
+        color: item.color
+      }));
+
+      const mostWastedCategory = sortedData[0].category;
+
+      setTopFourWasteItems(topFourWasteItems);
+      setTotalWaste(wasteSum);
+      setMostWastedCategory(mostWastedCategory);
+  }, [wasteData]);
+
 
   return (
     <div className="dashboard">
@@ -104,10 +187,10 @@ function Dashboard() {
             </div>
           </div>
 
-          <OverviewCards />
+          <OverviewCards totalWaste={totalWaste} mostWastedCategory={mostWastedCategory}/>
           
           <div className="charts-section">
-            <WasteChart />
+            <WasteChart topFourWasteItems={topFourWasteItems} />
             <Recommendations recommendationsData={recommendations} />
           </div>
 
