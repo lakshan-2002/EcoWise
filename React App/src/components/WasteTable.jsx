@@ -10,7 +10,6 @@ function WasteTable() {
 
   useEffect(() => {
       const loggedInUser = localStorage.getItem('user');
-      console.log('Logged in user:', loggedInUser);
       if (!loggedInUser) {
         toast.error("You must be logged in to view waste logs", {
           className: "my-error-toast"
