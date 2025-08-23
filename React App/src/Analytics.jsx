@@ -110,8 +110,10 @@ function Analytics() {
     });
 
     const totalsArray = categories.map(c => totals[c]);
-    const totalWaste = totalsArray.reduce((sum, val) => sum + val, 0);
+    const totalWaste = totalsArray.reduce((sum, val) => sum + val, 0).toFixed(2);
+    console.log(totalWaste);
     const percentages = totalsArray.map(val => ((val / totalWaste) * 100).toFixed(2));
+    console.log(percentages);
 
     setPieData({
       labels: categories,

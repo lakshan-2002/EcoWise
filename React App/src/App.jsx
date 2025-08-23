@@ -10,6 +10,7 @@ import RecommendationsPage from './RecommendationsPage';
 import Recommendations from "./components/Recommendations";
 import WasteChart from './components/WasteChart';
 
+
 const App = () => {
   return (
     <Router>

@@ -146,7 +146,7 @@ function Dashboard() {
 
       const totalsArray = sortedData.map(d => d.total);
       const totalWaste = totalsArray.reduce((sum, val) => sum + val, 0).toFixed(2);
-      const percentages = totalsArray.map(val => ((val / totalWaste) * 100).toFixed(2));
+      const percentages = totalsArray.map(val => ((val / wasteSum) * 100).toFixed(2));
 
       const topFourWasteItems = sortedData.map((item, index) => ({
         category: item.category,
