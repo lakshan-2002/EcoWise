@@ -1,0 +1,143 @@
+/* Background blur overlay */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+/* Modal box */
+.modal-content {
+  background: #121212; /* dark background */
+  color: #f1f1f1;      /* light text */
+  padding: 40px 30px;
+  border-radius: 12px;
+  width: 650px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
+  animation: fadeIn 0.3s ease;
+}
+
+.modal-content h2 {
+  margin-bottom: 18px;
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  border-bottom: 1px solid #333;
+  padding-bottom: 10px;
+}
+
+/* Form styling */
+.edit-form label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+  font-size: 14px;
+  color: #cccccc;
+}
+
+.edit-form input {
+  margin-top: 6px;
+  padding: 7px;
+  border: 1px solid #444;
+  border-radius: 8px;
+  font-size: 14px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #f1f1f1;
+  outline: none;
+  transition: border 0.2s, background 0.2s;
+}
+
+.edit-form input:focus {
+  border-color: #84E931;
+}
+
+.edit-waste-form-select option {
+  background: #2a2a2a; /* Dark background for options */
+  color: #fff;
+}
+
+.edit-waste-form-input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 14px;
+  outline: none;
+  transition: border 0.2s;
+}
+
+.edit-waste-form-input
+.edit-waste-form-select {
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  
+}
+
+.edit-waste-form-input:focus {
+  border: #84E931;
+}
+
+.edit-waste-form-input::placeholder {
+  color: #fff;
+}
+
+/* Buttons */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.save-btn,
+.cancel-btn {
+  flex: 1;
+  padding: 10px 0;
+  border: none;
+  border-radius: 8px;
+  margin-top: 20px !important;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.save-btn {
+  background: #31CA2C;
+  color: #fff;
+  margin-right: 10px;
+}
+
+.save-btn:hover {
+  background: #84E931;
+}
+
+.cancel-btn {
+  background: red;
+  color: #fff;
+}
+
+.cancel-btn:hover {
+  background: #ff6b6b;
+}
+
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
