@@ -13,7 +13,8 @@ function RecommendationsPage() {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [recommendations, setRecommendations] = useState([]);
   const [visibleCount, setVisibleCount] = useState(5);
-  
+  const [showFilters, setShowFilters] = useState(false);
+
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
@@ -91,10 +92,18 @@ function RecommendationsPage() {
     }
   };
 
-  const filteredRecommendations = recommendations.filter(rec =>
-    rec.message.toLowerCase().includes(searchTerm.toLowerCase()) &&
-    (selectedCategory === 'All' || rec.category === selectedCategory)
-  );
+  const filteredRecommendations = recommendations.filter((rec) => {
+  const matchesSearch =
+    rec.category.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    rec.message.toLowerCase().includes(searchTerm.toLowerCase());
+
+  const matchesPriority =
+    selectedCategory === "All" || rec.priority === selectedCategory;
+
+  return matchesSearch && matchesPriority;
+});
+
+
 
   const categories = ['All', ...new Set(recommendations.map(rec => rec.category))];
 
@@ -109,18 +118,11 @@ function RecommendationsPage() {
               className="recommendations-sidebar-toggle"
               onClick={toggleSidebar}
             >
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-              >
-                <rect x="3" y="6" width="18" height="2" />
-                <rect x="3" y="12" width="18" height="2" />
-                <rect x="3" y="18" width="18" height="2" />
-              </svg>
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <line x1="3" y1="6" x2="21" y2="6"/>
+                <line x1="3" y1="12" x2="21" y2="12"/>
+                <line x1="3" y1="18" x2="21" y2="18"/>
+            </svg>
             </button>
             <div className="recommendations-separator"></div>
             <div className="recommendations-breadcrumb">
@@ -213,14 +215,47 @@ function RecommendationsPage() {
                     className="search-input"
                   />
                 </div>
-                <button className="filters-btn">
+              <div className="filters-wrapper">
+                <button className="filters-btn"
+                  onClick={() => setShowFilters(!showFilters)}
+                >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <polygon points="22,3 2,3 10,12.46 10,19 14,21 14,12.46"/>
                   </svg>
                   Filters
                 </button>
+
+                {showFilters && (
+                  <div className="filters-dropdown">
+                    <div 
+                      className={`filter-option ${selectedCategory === "All" ? "active" : ""}`}
+                      onClick={() => { setSelectedCategory("All"); setShowFilters(false); }}
+                    >
+                      All 
+                    </div>
+                    <div 
+                      className={`filter-option ${selectedCategory === "High" ? "active" : ""}`}
+                      onClick={() => { setSelectedCategory("High"); setShowFilters(false); }}
+                    >
+                      High
+                    </div>
+                    <div 
+                      className={`filter-option ${selectedCategory === "Medium" ? "active" : ""}`}
+                      onClick={() => { setSelectedCategory("Medium"); setShowFilters(false); }}
+                    >
+                      Medium
+                    </div>
+                    <div 
+                      className={`filter-option ${selectedCategory === "Low" ? "active" : ""}`}
+                      onClick={() => { setSelectedCategory("Low"); setShowFilters(false); }}
+                    >
+                      Low
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
+          </div>
 
             {/* Recommendations Table */}
             <div className="recommendations-table">
@@ -289,7 +324,7 @@ function RecommendationsPage() {
                   </div>       
                 ))}
                 {visibleCount < recommendations.length && (
-                <div style={{ marginLeft: 1500, marginTop: 10 }}>
+                <div style={{ display: "flex", justifyContent: "flex-end", marginRight: 30, marginTop: 10, overflowX: "auto" }}>
                   <span
                     style={{ color: "White", cursor: "pointer" }}
                     onClick={() => setVisibleCount(recommendations.length)}
