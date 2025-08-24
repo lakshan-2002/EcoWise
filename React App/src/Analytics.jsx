@@ -111,9 +111,7 @@ function Analytics() {
 
     const totalsArray = categories.map(c => totals[c]);
     const totalWaste = totalsArray.reduce((sum, val) => sum + val, 0).toFixed(2);
-    console.log(totalWaste);
     const percentages = totalsArray.map(val => ((val / totalWaste) * 100).toFixed(2));
-    console.log(percentages);
 
     setPieData({
       labels: categories,
@@ -197,9 +195,9 @@ function Analytics() {
           <div className="header-left">
             <button className="sidebar-toggle" onClick={toggleSidebar}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="6" width="18" height="2"/>
-                <rect x="3" y="12" width="18" height="2"/>
-                <rect x="3" y="18" width="18" height="2"/>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <line x1="3" y1="12" x2="21" y2="12"/>
+                  <line x1="3" y1="18" x2="21" y2="18"/>
               </svg>
             </button>
             <div className="separator"></div>
