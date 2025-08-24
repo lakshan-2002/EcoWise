@@ -6,6 +6,7 @@ import com.lakshan.ecowise.entity.User;
 import com.lakshan.ecowise.model.AiRecommendationDTO;
 import com.lakshan.ecowise.repository.RecommendationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -28,6 +29,7 @@ public class RecommendationService {
         this.aiRecommendationDTO = aiRecommendationDTO;
     }
 
+    @Async
     public void saveRecommendations(String prompt,
                                     String category,
                                     FoodWasteLog foodWasteLog,
