@@ -10,7 +10,7 @@ import Recommendations from './components/Recommendations';
 import WasteTable from './components/WasteTable';
 import axios from 'axios';
 import { toast } from 'react-toastify';
-import { scryRenderedDOMComponentsWithTag } from 'react-dom/test-utils';
+
 
 function Dashboard() {
   const navigate = useNavigate();
@@ -20,17 +20,41 @@ function Dashboard() {
   const [topFourWasteItems, setTopFourWasteItems] = useState([]);
   const [totalWaste, setTotalWaste] = useState([]);
   const [mostWastedCategory, setMostWastedCategory] = useState([]);
+  const [wasteLogs, setWasteLogs] = useState([]);
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
 
   const handleLogout = () => {
-    // Simulate logout process
     console.log('Logging out...');
-    alert('Logged out successfully!');
+    localStorage.removeItem('user');
     navigate('/login');
   };
+
+   useEffect(() => {
+      const loggedInUser = localStorage.getItem('user');
+      if (!loggedInUser) {
+        toast.error("You must be logged in to view waste logs", {
+          className: "my-error-toast"
+        });
+      }
+
+    const fetchWasteLogs = async () => {
+      try {
+        const loggedInUser = JSON.parse(localStorage.getItem('user'));
+        const response = await axios.get(`http://localhost:8080/food_waste_logs/getFoodWasteItemsByUserId/${loggedInUser.id}`);
+        setWasteLogs(response.data);
+      } catch (error) {
+        console.error("Error fetching waste logs:", error);
+        toast.error("Error fetching waste logs", {
+          className: "my-error-toast"
+        });
+      }
+    };
+
+    fetchWasteLogs();
+    }, []);
 
   // Fetch recommendations when the component mounts
   useEffect(() => {
@@ -165,7 +189,7 @@ function Dashboard() {
 
   return (
     <div className="dashboard">
-      <Sidebar collapsed={sidebarCollapsed} onLogout={handleLogout} />
+      <Sidebar collapsed={sidebarCollapsed} onLogout={handleLogout}/>
       <div className="main-content">
         <Header onMenuClick={toggleSidebar} />
         <div className="dashboard-content">
@@ -198,7 +222,7 @@ function Dashboard() {
             <div className="section-header">
               <h2>Recent Waste Logs</h2>
             </div>
-            <WasteTable />
+            <WasteTable wasteLogs={wasteLogs} />
           </div>
         </div>
       </div>

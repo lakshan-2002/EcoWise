@@ -7,35 +7,13 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 
 
-function WasteTable() {
+function WasteTable({wasteLogs = []}) {
   const navigate = useNavigate();
-  const [wasteLogs, setWasteLogs] = useState([]);
+  const [wasteData, setWasteData] = useState(wasteLogs);
   const [visibleCount, setVisibleCount] = useState(5);
   const [selectedLog, setSelectedLog] = useState(null);
 
-  useEffect(() => {
-      const loggedInUser = localStorage.getItem('user');
-      if (!loggedInUser) {
-        toast.error("You must be logged in to view waste logs", {
-          className: "my-error-toast"
-        });
-      }
-
-    const fetchWasteLogs = async () => {
-      try {
-        const loggedInUser = JSON.parse(localStorage.getItem('user'));
-        const response = await axios.get(`http://localhost:8080/food_waste_logs/getFoodWasteItemsByUserId/${loggedInUser.id}`);
-        setWasteLogs(response.data);
-      } catch (error) {
-        console.error("Error fetching waste logs:", error);
-        toast.error("Error fetching waste logs", {
-          className: "my-error-toast"
-        });
-      }
-    };
-
-    fetchWasteLogs();
-    }, []);
+  console.log("Waste logs in WasteTable:", wasteLogs);
 
     const handleEdit = (log) => {
       setSelectedLog(log);
@@ -45,7 +23,7 @@ function WasteTable() {
       try {
         if (window.confirm("Are you sure you want to delete this log?")) {
           await axios.delete(`http://localhost:8080/food_waste_logs/deleteFoodWasteItem/${id}`);
-          setWasteLogs(wasteLogs.filter(log => log.id !== id));
+          setWasteData(wasteData.filter(log => log.id !== id));
           toast.success("Log deleted successfully", {
             className: "my-success-toast"
           });
