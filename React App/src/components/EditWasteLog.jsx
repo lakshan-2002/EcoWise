@@ -15,6 +15,7 @@ function EditWasteLog({ log, onClose, onSave }) {
     wastedDate: ""
   });
     const [logs, setLogs] = useState([]);
+    const today = new Date().toISOString().split("T")[0];
 
   useEffect(() => {
     const loggedInUser = JSON.parse(localStorage.getItem("user"));
@@ -131,6 +132,7 @@ function EditWasteLog({ log, onClose, onSave }) {
               value={formData.wastedDate}
               onChange={handleChange}
               required
+              max={today}
             />
           </label>
           <div className="modal-buttons">
