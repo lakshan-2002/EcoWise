@@ -1,7 +1,7 @@
 import React from 'react';
 import './OverviewCards.css';
 
-function OverviewCards() {
+function OverviewCards({totalWaste, mostWastedCategory}) {
   return (
     <div className="overview-cards">
       <div className="card total-waste">
@@ -10,7 +10,7 @@ function OverviewCards() {
         </div>
         <div className="card-content">
           <div className="waste-amount">
-            <span className="amount">35</span>
+            <span className="amount">{totalWaste}</span>
             <span className="unit">kg/month</span>
           </div>
           <div className="waste-change positive">
@@ -26,7 +26,7 @@ function OverviewCards() {
         </div>
         <div className="card-content">
           <div className="category-info">
-            <div className="category-name">Fruits</div>
+            <div className="category-name">{mostWastedCategory}</div>
           </div>
         </div>
       </div>

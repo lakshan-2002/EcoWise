@@ -8,12 +8,10 @@
 }
 
 .logs-container {
-  width: 100%;
-  max-width: 1650px;
-  margin: 0 auto;
+  flex: 1;
   background: #09090B;
   border-radius: 16px;
-  margin-top: 10px;
+  margin: 10px 10px 10px 0;
   overflow: hidden;
 }
 
@@ -40,6 +38,13 @@
   justify-content: center;
   color: #fff;
   cursor: pointer;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  transition: border-color 0.2s ease;
+}
+
+.logs-header-button:hover {
+  border-color: #84E931;
 }
 
 .logs-separator {
@@ -105,10 +110,11 @@
 .logs-profile-img {
   width: 40px;
   height: 40px;
-  margin-left: 1525px;
   border-radius: 50%;
-  object-fit: contain;
+  object-fit: cover;
   margin-top: -75px;
+  position: absolute;
+  right: 40px; 
 }
 
 .logs-form-line {
@@ -286,7 +292,7 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
 /* Responsive Design */
 @media (max-width: 1200px) {
   .logs-container {
-    margin: 16px;
+    margin: 10px 10px 10px 0;
     max-width: none;
   }
   

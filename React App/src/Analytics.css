@@ -118,10 +118,11 @@
 .analytics-profile-img {
   width: 40px;
   height: 40px;
-  margin-left: 1525px;
   border-radius: 50%;
   object-fit: contain;
   margin-top: -100px;
+  position: absolute;
+  right: 40px;
 }
 
 .charts-container {

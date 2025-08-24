@@ -23,6 +23,8 @@
     padding: 16px;
     background-color: #09090B;
     border-bottom: 1px solid #333;
+    flex-wrap: wrap;
+    gap: 12px;
 }
 
 .recommendations-header-left {
@@ -87,13 +89,16 @@
   transition: background-color 0.2s ease;
 }
 
-.recommendations-profile-img {
-  width: 40px;
-  height: 40px;
-  margin-left: 1525px;
-  border-radius: 50%;
-  object-fit: contain;
-  margin-top: -100px;
+.recommendations-profile-img { 
+  width: 40px; 
+  height: 40px; 
+  max-width: 60px;
+  margin-left: auto; 
+  border-radius: 50%; 
+  object-fit: cover; 
+  position: absolute;
+  top: 120px;   
+  right: 40px; 
 }
 
 .recommendations-divider{
@@ -207,6 +212,7 @@
   border: 1px solid #18181B;
   border-radius: 6px;
   padding: 8px 16px;
+  margin-right: 30px;
   color: #FFFFFF;
   font-family: 'Inter', sans-serif;
   font-size: 14px;
@@ -214,6 +220,32 @@
   line-height: 1.43em;
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+.filter-wrapper{
+  position: relative;
+  display: inline-block;
+}
+
+.filters-dropdown {
+  position: absolute;
+  margin-top: 8px;
+  background: #09090B; 
+  border: 1px solid #444;
+  border-radius: 8px;
+  padding: 8px 0;
+  width: 150px;
+  z-index: 1000;
+}
+
+.filter-option {
+  padding: 8px 12px;
+  cursor: pointer;
+  color: white;
+}
+
+.filter-option:hover {
+  background: #27272A;
 }
 
 .filters-btn:hover {
@@ -230,15 +262,17 @@
 .recommendations-table {
   background-color: #09090B;
   border-radius: 8px;
-  overflow: hidden;
+  overflow: visible;
   margin-left: 0 !important;   
-  padding-left: 25px !important;   
+  padding-left: 25px !important; 
+  min-width: 950px;  
 }
 
 .table-header {
   display: flex;
   background-color: #09090B;
   border-bottom: 1px solid #27272A;
+  min-width: 950px;
 }
 
 .table-column {
@@ -510,6 +544,15 @@
 }
 
 @media (max-width: 768px) {
+  .recommendations-page-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .recommendations-profile-img{
+    max-width: 50px;
+  }
+
   .section-header {
     flex-direction: column;
     align-items: flex-start;
@@ -523,11 +566,18 @@
   
   .search-container {
     width: 200px;
+    flex: 1;
+    min-width: 0;
+  }
+
+  .filters-btn{
+    flex: 1;
   }
   
   .table-header,
   .table-row {
     flex-direction: column;
+    align-items: flex-start;
   }
   
   .table-column,
@@ -550,14 +600,35 @@
   
   .priority-column,
   .priority-cell {
-    width: 100%;
+    flex: 1 1 150px;
     justify-content: flex-start;
+    min-width: 120px;
+    max-width: 200px;
   }
   
   .action-column,
   .action-cell {
-    width: 100%;
+    flex: 0 0 120px;   /* mostly fixed but can adjust */
     justify-content: flex-start;
+    min-width: 100px;
+  }
+}
+
+@media (max-width: 480px) {
+  .recommendations-breadcrumb {
+    font-size: 20px;
+  }
+  .recommendations-breadcrumb-item {
+    font-size: 16px;
+  }
+  .recommendations-profile-img{
+    max-width: 40px;
+  }
+  .search-container {
+    max-width: 100%;
+  }
+  .quick-actions-grid {
+    gap: 16px;
   }
 }
 

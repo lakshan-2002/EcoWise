@@ -1,38 +1,42 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './WasteTable.css';
+import EditWasteLog from './EditWasteLog'; 
 import axios from 'axios';  
 import { toast } from 'react-toastify';
 
-function WasteTable() {
-  const [wasteLogs, setWasteLogs] = useState([]);
+
+function WasteTable({wasteLogs = []}) {
+  const navigate = useNavigate();
+  const [wasteData, setWasteData] = useState(wasteLogs);
   const [visibleCount, setVisibleCount] = useState(5);
+  const [selectedLog, setSelectedLog] = useState(null);
 
-  useEffect(() => {
-      const loggedInUser = localStorage.getItem('user');
-      console.log('Logged in user:', loggedInUser);
-      if (!loggedInUser) {
-        toast.error("You must be logged in to view waste logs", {
-          className: "my-error-toast"
-        });
-      }
+    const handleEdit = (log) => {
+      setSelectedLog(log);
+    };
 
-    const fetchWasteLogs = async () => {
+    const handleDelete = async (id) => {
       try {
-        const loggedInUser = JSON.parse(localStorage.getItem('user'));
-        const response = await axios.get(`http://localhost:8080/food_waste_logs/getFoodWasteItemsByUserId/${loggedInUser.id}`);
-        setWasteLogs(response.data);
+        if (window.confirm("Are you sure you want to delete this log?")) {
+          await axios.delete(`http://localhost:8080/food_waste_logs/deleteFoodWasteItem/${id}`);
+          setWasteData(wasteData.filter(log => log.id !== id));
+          toast.success("Log deleted successfully", {
+            className: "my-success-toast"
+          });
+        }
       } catch (error) {
-        console.error("Error fetching waste logs:", error);
-        toast.error("Error fetching waste logs", {
+        console.error("Error deleting waste log:", error);
+        toast.error("Error deleting waste log", {
           className: "my-error-toast"
         });
       }
     };
 
-    fetchWasteLogs();
-    }, []);
-
+    const handleClose = () => {
+      setSelectedLog(null);
+    };
 
   return (
     <div className="waste-table">
@@ -62,8 +66,8 @@ function WasteTable() {
                 </td>
                 <td>
                   <div className="action-buttons">
-                    <button className="edit-btn">Edit</button>
-                    <button className="delete-btn">Delete</button>
+                    <button className="edit-btn" onClick={() => handleEdit(log)}>Edit</button>
+                    <button className="delete-btn" onClick={() => handleDelete(log.id)}>Delete</button>
                   </div>
                 </td>
               </tr>
@@ -82,6 +86,16 @@ function WasteTable() {
           </div>
         )}
       </div>
+      {selectedLog && (
+        <EditWasteLog
+          log={selectedLog}
+          onClose={handleClose}
+          onSave={(data) => {
+          console.log("Saved:", data);
+          handleClose();
+        }}
+      />
+      )}
     </div>
   );
 }

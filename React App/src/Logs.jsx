@@ -8,6 +8,7 @@ import { toast } from 'react-toastify';
 
 const Logs = () => {
   const [loading, setLoading] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
   const [form, setForm] = useState({
     itemName: '',
     category: '',
@@ -18,6 +19,12 @@ const Logs = () => {
   });
   const [logs, setLogs] = useState([]);
   const [user, setUser] = useState(null);
+
+  const today = new Date().toISOString().split('T')[0];
+
+  const toggleSidebar = () => {
+    setSidebarCollapsed(!sidebarCollapsed);
+  };
 
   useEffect(() => {
     const loggedInUser = localStorage.getItem('user');
@@ -46,7 +53,7 @@ const Logs = () => {
     try {
       const response = await axios.post("http://localhost:8080/food_waste_logs/addFoodWasteItem", formDataWithUser);
       setLogs([...logs, { ...form, id: response.data.id }]);
-      toast.success("Log added successfully!", {
+      toast.success("Log added successfully", {
         className: "my-success-toast"
       });
     } catch (error) {
@@ -61,24 +68,24 @@ const Logs = () => {
   };
 
    const handleLogout = () => {
-    // Simulate logout process
     console.log('Logging out...');
-    toast.success('Logged out successfully!');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
   return (
     <div className="logs-page">
-      <Sidebar onLogout={handleLogout} />
+      <Sidebar collapsed={sidebarCollapsed} onLogout={handleLogout} />
       <div className="logs-container">
         {/* Header Section */}
         <div className="logs-header">
           <div className="logs-header-content">
             <div className="logs-header-flex">
-              <div className="logs-header-button">
-                <svg width="28" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <rect x="3" y="6" width="18" height="12" rx="2"/>
-                  <path d="M9 12h6"/>
+              <div className="logs-header-button" onClick={toggleSidebar}>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <line x1="3" y1="12" x2="21" y2="12"/>
+                  <line x1="3" y1="18" x2="21" y2="18"/>
                 </svg>
               </div>
               <div className="logs-separator"></div>
@@ -188,6 +195,7 @@ const Logs = () => {
                   className="logs-form-input"
                   placeholder="Wasted date"
                   required 
+                  max={today} 
                 />
               </div>
             </div>

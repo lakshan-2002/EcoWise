@@ -1,46 +1,141 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import myProfile from './assets/myProfile.png';
 import { Chart as ChartJS, ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title } from 'chart.js';
 import { Pie, Bar } from 'react-chartjs-2';
 import Sidebar from './components/Sidebar';
 import './Analytics.css';
+import axios from 'axios';
+import { toast } from 'react-toastify';
 
 ChartJS.register(ArcElement, Tooltip, Legend, CategoryScale, LinearScale, BarElement, Title);
 
 function Analytics() {
   const navigate = useNavigate();
   const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [wasteLogs, setWasteLogs] = useState([]);
+
+  const unitToKgMap = {
+    g: 0.001,
+    mg: 0.000001,
+    kg: 1,
+
+    l: 1,
+    ml: 0.001,
+
+    pcs: 0.15,     // average fruit/veg piece weight
+    bunches: 0.5,  // average bunch weight (like bananas or greens)
+    slices: 0.03,  // average slice (bread/fruit)
+  };
+
+  function convertToKg(quantity, unit) {
+    const conversionRate = unitToKgMap[unit.toLowerCase()] || 1;
+    return quantity * conversionRate;
+  }
+
+  useEffect(() => {
+    const loggedInUser = localStorage.getItem('user');
+    console.log('Logged in user:', loggedInUser);
+    if (!loggedInUser) {
+      toast.error("You must be logged in to view waste logs", {
+      className: "my-error-toast"
+     });
+    }
+
+  const fetchWasteLogs = async () => {
+    try {
+      const loggedInUser = JSON.parse(localStorage.getItem('user'));
+      const response = await axios.get(`http://localhost:8080/food_waste_logs/getFoodWasteItemsByUserId/${loggedInUser.id}`);
+
+      const convertedData = response.data.map(item => ({
+        ...item,
+        quantityInKg: convertToKg(item.quantity, item.unit)
+      }));
+      setWasteLogs(convertedData);
+    
+
+    } catch (error) {
+      console.error("Error fetching waste logs:", error);
+      toast.error("Error fetching waste logs", {
+      className: "my-error-toast"
+      });
+    }
+  };
+
+  fetchWasteLogs();
+  }, []);
+
 
   const toggleSidebar = () => {
     setSidebarCollapsed(!sidebarCollapsed);
   };
 
   const handleLogout = () => {
-    // Simulate logout process
     console.log('Logging out...');
-    alert('Logged out successfully!');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
-  // Pie chart data for food categories
-  const pieData = {
-    labels: ['Fruits', 'Vegetables', 'Grains & Bakery', 'Cooked / Leftovers', 'Dairy & Eggs', 'Other'],
-    datasets: [
-      {
-        data: [31, 19, 22, 14, 4, 10],
-        backgroundColor: [
-          '#3B33DD', // Blue
-          '#E23670', // Red
-          '#B6B919', // Yellow
-          '#E88C30', // Orange
-          '#AF57DB', // Purple
-          '#2EB88A', // Green
-        ],
-        borderWidth: 0,
-      },
-    ],
-  };
+  const [pieData, setPieData] = useState(null);
+  const [barData, setBarData] = useState(null);
+
+  useEffect(() => {
+    if (wasteLogs.length === 0) return;
+
+    const categories = [
+      "Fruits",
+      "Vegetables",
+      "Grains & Bakery",
+      "Cooked / Leftovers",
+      "Dairy & Eggs",
+      "Other"
+    ];
+
+    const categoryColors = [
+      '#3B33DD', // Fruits
+      '#E23670', // Vegetables
+      '#B6B919', // Grains
+      '#E88C30', // Cooked
+      '#AF57DB', // Dairy
+      '#2EB88A', // Other
+    ];
+
+    // Sum waste per category in kg
+    const totals = Object.fromEntries(categories.map(c => [c, 0]));
+
+    wasteLogs.forEach(item => {
+      const cat = categories.includes(item.category) ? item.category : "Other";
+      totals[cat] += item.quantityInKg;
+    });
+
+    const totalsArray = categories.map(c => totals[c]);
+    const totalWaste = totalsArray.reduce((sum, val) => sum + val, 0).toFixed(2);
+    const percentages = totalsArray.map(val => ((val / totalWaste) * 100).toFixed(2));
+
+    setPieData({
+      labels: categories,
+      datasets: [
+        {
+          data: percentages,
+          backgroundColor: categoryColors,
+          borderWidth: 0,
+        },
+      ],
+    });
+
+    setBarData({
+      labels: categories,
+      datasets: [
+        {
+          label: 'Amount wasted per month (kg)',
+          data: totalsArray.map(val => val.toFixed(2)),
+          backgroundColor: categoryColors,
+          borderWidth: 0,
+          borderRadius: 4,
+        },
+      ],
+    });
+  }, [wasteLogs]);
 
   const pieOptions = {
     responsive: true,
@@ -57,27 +152,6 @@ function Analytics() {
         }
       }
     }
-  };
-
-  // Bar chart data for waste amounts
-  const barData = {
-    labels: ['Fruits', 'Vegetables', 'Grains & Bakery', 'Cooked / Leftovers', 'Dairy & Eggs', 'Other'],
-    datasets: [
-      {
-        label: 'Amount wasted per month (kg)',
-        data: [10.85, 7.7, 4.9, 6.65, 1.4, 3.5],
-        backgroundColor: [
-          '#3B33DD',
-          '#E23670', 
-          '#B6B919',
-          '#E88C30',
-          '#AF57DB',
-          '#2EB88A',
-        ],
-        borderWidth: 0,
-        borderRadius: 4,
-      },
-    ],
   };
 
   const barOptions = {
@@ -120,9 +194,9 @@ function Analytics() {
           <div className="header-left">
             <button className="sidebar-toggle" onClick={toggleSidebar}>
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <rect x="3" y="6" width="18" height="2"/>
-                <rect x="3" y="12" width="18" height="2"/>
-                <rect x="3" y="18" width="18" height="2"/>
+                  <line x1="3" y1="6" x2="21" y2="6"/>
+                  <line x1="3" y1="12" x2="21" y2="12"/>
+                  <line x1="3" y1="18" x2="21" y2="18"/>
               </svg>
             </button>
             <div className="separator"></div>
@@ -159,7 +233,7 @@ function Analytics() {
             <div className="chart-section">
               <div className="pie-chart-container">
                 <div className="pie-chart">
-                  <Pie data={pieData} options={pieOptions} />
+                  {pieData && <Pie data={pieData} options={pieOptions} />}
                   <div className="chart-center-text">
                   </div>
                 </div>
@@ -197,7 +271,7 @@ function Analytics() {
               <div className="bar-chart-container">
                 <h3 className="chart-title">Food categories</h3>
                 <div className="bar-chart">
-                  <Bar data={barData} options={barOptions} />
+                  {barData && <Bar data={barData} options={barOptions} />}
                 </div>
               </div>
             </div>
