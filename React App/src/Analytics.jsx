@@ -71,9 +71,8 @@ function Analytics() {
   };
 
   const handleLogout = () => {
-    // Simulate logout process
     console.log('Logging out...');
-    alert('Logged out successfully!');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 

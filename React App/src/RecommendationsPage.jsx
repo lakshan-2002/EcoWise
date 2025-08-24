@@ -21,7 +21,7 @@ function RecommendationsPage() {
 
   const handleLogout = () => {
     console.log('Logging out...');
-    alert('Logged out successfully!');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 

@@ -68,9 +68,8 @@ const Logs = () => {
   };
 
    const handleLogout = () => {
-    // Simulate logout process
     console.log('Logging out...');
-    toast.success('Logged out successfully!');
+    localStorage.removeItem('user');
     navigate('/login');
   };
 
