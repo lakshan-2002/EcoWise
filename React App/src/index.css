@@ -19,12 +19,12 @@ body {
 
 .my-success-toast {
   color: black !important;
-  font-weight: 300;
+  font-size: medium !important;
 }
 
 .my-error-toast {
   color: black !important;
-  font-weight: 300;
+  font-size: medium !important;
 }
 
 #root {
