@@ -13,8 +13,6 @@ function WasteTable({wasteLogs = []}) {
   const [visibleCount, setVisibleCount] = useState(5);
   const [selectedLog, setSelectedLog] = useState(null);
 
-  console.log("Waste logs in WasteTable:", wasteLogs);
-
     const handleEdit = (log) => {
       setSelectedLog(log);
     };
