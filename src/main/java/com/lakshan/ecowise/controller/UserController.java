@@ -30,12 +30,29 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody User user) {
+        ResponseEntity<?> validationResponse = validateUserInput(user);
+
+        if (validationResponse != null) {
+            return validationResponse;
+        }
         var dbUser = userService.getUserByEmail(user.getEmail());
 
         if (dbUser != null && dbUser.getPassword().equals(DigestUtils.sha256Hex(user.getPassword()))) {
             return ResponseEntity.ok(dbUser);
         } else
             return ResponseEntity.status(401).body("Invalid email or password");
+    }
+
+    private ResponseEntity<?> validateUserInput(User user) {
+        if (user.getEmail() == null || user.getEmail().isBlank() ||
+                user.getPassword() == null || user.getPassword().isBlank()) {
+            return ResponseEntity.badRequest().body("Email and password must not be empty");
+        }
+
+        if (!user.getEmail().matches("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$")) {
+            return ResponseEntity.badRequest().body("Invalid email format");
+        }
+        return null;
     }
 
     @GetMapping("/getUser/{id}")
