@@ -1,5 +1,6 @@
 package com.lakshan.ecowise.ui;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -19,7 +20,7 @@ public class AddWasteLogUiTest {
 
     @BeforeEach
     public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "src/test/resources/drivers/chromedriver.exe");
+        WebDriverManager.chromedriver().setup(); // Download the correct ChromeDriver version
         driver = new ChromeDriver();
         driver.get("http://localhost:5173/logs");
     }
