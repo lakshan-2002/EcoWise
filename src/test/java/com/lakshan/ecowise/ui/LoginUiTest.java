@@ -18,10 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class LoginUiTest {
     private WebDriver driver;
 
+    public LoginUiTest() {
+        this.driver = new ChromeDriver();
+    }
+
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup(); // Download the correct ChromeDriver version
-        driver = new ChromeDriver();
         driver.get("http://localhost:5173/login");
     }
 
@@ -30,10 +33,10 @@ public class LoginUiTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         WebElement emailField = driver.findElement(By.name("email"));
-        emailField.sendKeys("alice567@gmail.com");
+        emailField.sendKeys("kasun@gmail.com");
 
         WebElement passwordField = driver.findElement(By.name("password"));
-        passwordField.sendKeys("alice567567");
+        passwordField.sendKeys("kasun123");
 
         WebElement loginButton = wait.until(
                 ExpectedConditions.elementToBeClickable(By.className("login-button")));
@@ -48,10 +51,10 @@ public class LoginUiTest {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         WebElement emailField = driver.findElement(By.name("email"));
-        emailField.sendKeys("alice567@gmail.com");
+        emailField.sendKeys("kasun@gmail.com");
 
         WebElement passwordField = driver.findElement(By.name("password"));
-        passwordField.sendKeys("alice567");
+        passwordField.sendKeys("kasun");
 
         WebElement loginButton = wait.until(
                 ExpectedConditions.elementToBeClickable(By.className("login-button")));

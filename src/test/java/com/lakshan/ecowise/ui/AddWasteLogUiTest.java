@@ -18,10 +18,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AddWasteLogUiTest {
     private WebDriver driver;
 
+    public AddWasteLogUiTest() {
+        this.driver = new ChromeDriver();
+    }
+
     @BeforeEach
     public void setUp() {
         WebDriverManager.chromedriver().setup(); // Download the correct ChromeDriver version
-        driver = new ChromeDriver();
         driver.get("http://localhost:5173/logs");
     }
 
