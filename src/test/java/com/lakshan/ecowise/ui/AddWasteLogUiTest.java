@@ -8,6 +8,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -17,9 +18,12 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class AddWasteLogUiTest {
     private WebDriver driver;
+    private ChromeOptions options;
 
     public AddWasteLogUiTest() {
-        this.driver = new ChromeDriver();
+        this.options = new ChromeOptions();
+        options.setBinary("/usr/bin/google-chrome"); // Path to Chrome binary
+        this.driver = new ChromeDriver(options);
     }
 
     @BeforeEach
