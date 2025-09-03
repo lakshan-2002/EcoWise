@@ -5,7 +5,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 @SpringBootTest(classes = EcoWiseApplication.class)
-@ActiveProfiles("test")
+@ActiveProfiles("test")   // Spring tells to load application-test.properties for this test
 class EcoWiseApplicationTests {
 
     @Test
