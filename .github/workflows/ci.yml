@@ -28,8 +28,8 @@ jobs:
 
       # Step 4: Run Unit Tests
       - name: Run Unit Tests
-        run: mvn test -Dtest=\!LoginUITest,\!AddWasteLogUITest
+        run: mvn test -Dtest=\!LoginUiTest,\!AddWasteLogUiTest
 
       # Step 5: Run Integration / Automation Tests
       - name: Run Integration Tests
-        run: mvn verify -Dtest=\!LoginUITest,\!AddWasteLogUITest
+        run: mvn verify -Dtest=\!LoginUITest,\!AddWasteLogUiTest
