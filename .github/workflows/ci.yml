@@ -32,4 +32,4 @@ jobs:
 
       # Step 5: Run Integration / Automation Tests
       - name: Run Integration Tests
-        run: mvn verify -Dtest=\!LoginUITest,\!AddWasteLogUiTest
+        run: mvn verify -Dtest=\!LoginUiTest,\!AddWasteLogUiTest
